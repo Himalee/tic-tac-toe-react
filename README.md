@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/Himalee/tic-tac-toe-react.svg?branch=master)](https://travis-ci.com/Himalee/tic-tac-toe-react)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
