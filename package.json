@@ -35,6 +35,6 @@
   },
   "devDependencies": {
     "@babel/preset-react": "^7.0.0",
-    "jest": "^24.8.0"
+    "jest": "^24.7.1"
   }
 }
