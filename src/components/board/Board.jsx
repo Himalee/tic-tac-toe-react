@@ -1,5 +1,6 @@
 import React, { Component }  from 'react';
 import {Cell} from '../cell/Cell'
+import './board.css';
 import * as cellValue from '../../cellValue';
 
 export class Board extends Component {
@@ -25,7 +26,7 @@ export class Board extends Component {
         />
     )
     return (
-      <div>{updatedGrid}</div>
+      <div class='gridContainer'>{updatedGrid}</div>
     );
   }
 
