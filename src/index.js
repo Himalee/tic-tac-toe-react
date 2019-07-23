@@ -1,4 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Board} from './components/board/Board';
 
- ReactDOM.render(<h1>Hello, world.</h1>, document.getElementById('root'));
+ReactDOM.render(<Board grid={[0, 1, 2, 3, 4, 5, 6, 7, 8]}/>, document.getElementById('root'));
