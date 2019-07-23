@@ -1,6 +1,7 @@
 import React, { Component }  from 'react';
 import {Cell} from '../cell/Cell'
 import './board.css';
+import * as boardHelper from './boardHelper';
 import * as cellValue from '../../cellValue';
 
 export class Board extends Component {
@@ -13,7 +14,9 @@ export class Board extends Component {
 
   handleClick(gridIndex) {
     const grid=this.state.grid.slice();
-    grid[gridIndex]=cellValue.X;
+    if (boardHelper.isMoveAvailable(grid, gridIndex)) {
+      grid[gridIndex]=cellValue.X;
+    }
     this.setState({grid: grid});
   }
 
