@@ -6,7 +6,7 @@ export function determineMark(grid) {
   return (numberOfX > numberOfO) ? cellValue.O : cellValue.X
 }
 
-function countMark(mark, grid) {
+export function countMark(mark, grid) {
   let count = 0;
   let currentGrid = grid;
   currentGrid.forEach(function(cell) {
