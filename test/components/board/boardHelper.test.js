@@ -1,4 +1,4 @@
-import * as boardHelper from '../src/components/board/boardHelper';
+import * as boardHelper from '../../../src/components/board/boardHelper';
 
 it('checks whether move is available', () => {
   const grid = ['X', ''];

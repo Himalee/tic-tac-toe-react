@@ -1,7 +1,7 @@
 import Enzyme from 'enzyme';
 import React from 'react';
-import {Game} from '../src/components/game/Game';
-import {Cell} from '../src/components/cell/Cell';
+import {Game} from '../../../src/components/game/Game';
+import {Cell} from '../../../src/components/cell/Cell';
 import Adapter from 'enzyme-adapter-react-16';
 Enzyme.configure({adapter: new Adapter()});
 
