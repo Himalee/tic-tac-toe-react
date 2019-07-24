@@ -8,7 +8,7 @@ export class Game extends Component {
   constructor(props){
     super(props);
     this.state={
-      grid: Array(9).fill(cellValue.EMPTY)
+      grid: Array(this.props.boardSize).fill(cellValue.EMPTY)
     };
     this.handleClick=this.handleClick.bind(this);
   }
