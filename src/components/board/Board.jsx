@@ -1,41 +1,17 @@
-import React, { Component }  from 'react';
+import React from 'react';
 import {Cell} from '../cell/Cell'
 import './board.css';
-import * as boardHelper from './boardHelper';
-import * as cellValue from '../../cellValue';
 
-export class Board extends Component {
-  constructor(props){
-    super(props);
-    this.state={
-      grid: Array(9).fill(cellValue.EMPTY)
-    };
-  }
-
-  handleClick(gridIndex) {
-    const grid=this.state.grid.slice();
-    if (boardHelper.isMoveAvailable(grid, gridIndex)) {
-      grid[gridIndex]=cellValue.X;
-    }
-    this.setState({grid: grid});
-  }
-
-  renderGrid() {
-    const updatedGrid=this.state.grid.map((cell, index) =>
+export function Board(props) {
+    const updatedGrid=props.updatedGrid.map((cell, index) =>
         <Cell
-          cellLabel={this.state.grid[index]}
-          onClick={() => this.handleClick(index)}
+          id={index}
+          cellLabel={props.updatedGrid[index]}
+          onClick={props.onClick}
           key={index}
         />
     )
     return (
-      <div class='gridContainer'>{updatedGrid}</div>
+      <div className='gridContainer'>{updatedGrid}</div>
     );
-  }
-
-  render() {
-    return (
-      this.renderGrid()
-    );
-  }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Board} from './components/board/Board';
+import {Game} from './components/game/Game';
 
-ReactDOM.render(<Board grid={[0, 1, 2, 3, 4, 5, 6, 7, 8]}/>, document.getElementById('root'));
+ReactDOM.render(<Game />, document.getElementById('root'));
