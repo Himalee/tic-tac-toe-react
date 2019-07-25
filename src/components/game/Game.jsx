@@ -30,7 +30,7 @@ export class Game extends Component {
     return (
       <div>
         <Board updatedGrid={this.state.grid} handleClick={this.handleClick} />
-        <h2>{gameHelper.status(this.state.grid)}</h2>
+        <h2>{gameHelper.determineGameStatus(this.state.grid)}</h2>
       </div>
     );
   }

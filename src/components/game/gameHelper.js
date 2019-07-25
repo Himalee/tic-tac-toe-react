@@ -16,7 +16,7 @@ export function countMark(mark, grid) {
   return count;
 }
 
-export function status(grid) {
+export function determineGameStatus(grid) {
   let status;
   if (lineAnalysis.isThereAWinner(grid).winnerFound) {
     status = gameStatus.winner(lineAnalysis.isThereAWinner(grid).winningMove);
