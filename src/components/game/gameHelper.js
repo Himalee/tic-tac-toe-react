@@ -10,8 +10,7 @@ export function determineMark(grid) {
 
 export function countMark(mark, grid) {
   let count = 0;
-  let currentGrid = grid;
-  currentGrid.forEach(cell => {
+  grid.forEach(cell => {
     if (cell === mark) count++;
   });
   return count;
