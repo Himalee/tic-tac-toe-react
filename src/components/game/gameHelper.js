@@ -5,15 +5,14 @@ import * as lineAnalysis from '../../lineAnalysis';
 export function determineMark(grid) {
   let numberOfX = countMark(cellValue.X, grid);
   let numberOfO = countMark(cellValue.O, grid);
-  return (numberOfX > numberOfO) ? cellValue.O : cellValue.X
+  return numberOfX > numberOfO ? cellValue.O : cellValue.X;
 }
 
 export function countMark(mark, grid) {
   let count = 0;
   let currentGrid = grid;
-  currentGrid.forEach(function(cell) {
-    if(cell === mark)
-      count++;
+  currentGrid.forEach(cell => {
+    if (cell === mark) count++;
   });
   return count;
 }
@@ -21,11 +20,11 @@ export function countMark(mark, grid) {
 export function status(grid) {
   let status;
   if (lineAnalysis.isThereAWinner(grid).winnerFound) {
-    status=gameStatus.winner(lineAnalysis.isThereAWinner(grid).winningMove);
+    status = gameStatus.winner(lineAnalysis.isThereAWinner(grid).winningMove);
   } else if (lineAnalysis.isThereADraw(grid)) {
-    status=gameStatus.DRAW;
+    status = gameStatus.DRAW;
   } else {
-    status=gameStatus.CONTINUE_PLAYING;
+    status = gameStatus.CONTINUE_PLAYING;
   }
   return status;
 }

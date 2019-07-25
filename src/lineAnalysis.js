@@ -2,12 +2,19 @@ import * as cellValue from '../src/cellValue';
 import * as gameHelper from '../src/components/game/gameHelper';
 
 export function isThereAWinner(grid) {
-  let winningResults = {winnerFound:false, winningMove:null};
-  winningLines(grid).forEach(function(line) {
+  let winningResults = {winnerFound: false, winningMove: null};
+  winningLines(grid).forEach(line => {
     const [a, b, c] = line;
-    let potentialWinningLine = [grid[a], grid[b], grid[c]]
-    if (potentialWinningLine.every( cell => isThereAWinningLine(cell, potentialWinningLine)))
-      winningResults = {winnerFound:true, winningMove:potentialWinningLine[0]}
+    let potentialWinningLine = [grid[a], grid[b], grid[c]];
+    if (
+      potentialWinningLine.every(cell =>
+        isThereAWinningLine(cell, potentialWinningLine),
+      )
+    )
+      winningResults = {
+        winnerFound: true,
+        winningMove: potentialWinningLine[0],
+      };
   });
   return winningResults;
 }
@@ -44,7 +51,7 @@ function gridDimension(grid) {
 }
 
 function verticalLines(grid) {
-  return (transpose(horizontalLines(grid)));
+  return transpose(horizontalLines(grid));
 }
 
 function transpose(lines) {
@@ -53,7 +60,10 @@ function transpose(lines) {
 
 function diagonalLines(grid) {
   const size = gridDimension(grid);
-  return [diagonalLine(grid, 0, size + 1), diagonalLine(grid, size - 1, size - 1)];
+  return [
+    diagonalLine(grid, 0, size + 1),
+    diagonalLine(grid, size - 1, size - 1),
+  ];
 }
 
 function diagonalLine(grid, firstIndex, increaseIndexBy) {
@@ -69,8 +79,8 @@ function diagonalLine(grid, firstIndex, increaseIndexBy) {
 
 function chunkArrayInGroups(grid, size, startingIndex) {
   let lines = [];
-  for(let i = startingIndex; i < grid.length; i += size) {
-    lines.push(grid.slice(i, i+size));
+  for (let i = startingIndex; i < grid.length; i += size) {
+    lines.push(grid.slice(i, i + size));
   }
   return lines;
 }
