@@ -17,6 +17,10 @@ export function isThereADraw(grid) {
   return numberOfEmptyCells === 0 && !isThereAWinner(grid).winnerFound;
 }
 
+export function isGameOver(grid) {
+  return isThereAWinner(grid).winnerFound || isThereADraw(grid);
+}
+
 function isThereAWinningLine(cell, line) {
   return cell === line[0] && cell !== cellValue.EMPTY;
 }

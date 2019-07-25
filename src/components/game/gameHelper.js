@@ -1,4 +1,6 @@
 import * as cellValue from '../../cellValue';
+import * as gameStatus from '../../gameStatus';
+import * as lineAnalysis from '../../lineAnalysis';
 
 export function determineMark(grid) {
   let numberOfX = countMark(cellValue.X, grid);
@@ -14,4 +16,16 @@ export function countMark(mark, grid) {
       count++;
   });
   return count;
+}
+
+export function status(grid) {
+  let status;
+  if (lineAnalysis.isThereAWinner(grid).winnerFound) {
+    status=gameStatus.winner(lineAnalysis.isThereAWinner(grid).winningMove);
+  } else if (lineAnalysis.isThereADraw(grid)) {
+    status=gameStatus.DRAW;
+  } else {
+    status=gameStatus.CONTINUE_PLAYING;
+  }
+  return status;
 }

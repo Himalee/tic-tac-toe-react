@@ -2,6 +2,7 @@ import React, {Component}  from 'react';
 import {Board} from '../board/Board';
 import * as boardHelper from '../board/boardHelper';
 import * as gameHelper from '../game/gameHelper';
+import * as lineAnalysis from '../../lineAnalysis';
 import * as cellValue from '../../cellValue';
 
 export class Game extends Component {
@@ -16,7 +17,7 @@ export class Game extends Component {
   handleClick(e) {
     const index=e.target.id;
     const grid=this.state.grid.slice();
-    if (boardHelper.isMoveAvailable(grid, index)) {
+    if (boardHelper.isMoveAvailable(grid, index) && !lineAnalysis.isGameOver(grid)) {
       grid[index]=gameHelper.determineMark(this.state.grid)
     }
     this.setState({grid: grid});
@@ -24,8 +25,11 @@ export class Game extends Component {
 
   render() {
     return (
+      <div>
       <Board updatedGrid={this.state.grid}
         onClick={this.handleClick}/>
+        <h2>{gameHelper.status(this.state.grid)}</h2>
+      </div>
     );
   }
 }
