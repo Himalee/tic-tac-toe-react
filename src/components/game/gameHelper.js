@@ -19,7 +19,9 @@ export function countMark(mark, grid) {
 export function determineGameStatus(grid) {
   let status;
   if (lineAnalysis.isThereAWinner(grid).winnerFound) {
-    status = gameStatus.winner(lineAnalysis.isThereAWinner(grid).winningMove);
+    status = gameStatus.showWinner(
+      lineAnalysis.isThereAWinner(grid).winningMove,
+    );
   } else if (lineAnalysis.isThereADraw(grid)) {
     status = gameStatus.DRAW;
   } else {
