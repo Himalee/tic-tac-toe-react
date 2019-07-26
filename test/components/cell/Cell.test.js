@@ -6,7 +6,7 @@ Enzyme.configure({adapter: new Adapter()});
 
 it('displays cell label', () => {
   const wrapper = Enzyme.shallow(<Cell />);
-  wrapper.setProps({ cellLabel: 'X' });
+  wrapper.setProps({cellLabel: 'X'});
   expect(wrapper.text()).toEqual('X');
 });
 

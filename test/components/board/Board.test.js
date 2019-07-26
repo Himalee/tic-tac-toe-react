@@ -6,6 +6,8 @@ import Adapter from 'enzyme-adapter-react-16';
 Enzyme.configure({adapter: new Adapter()});
 
 it('displays 9 cells for a 3x3 board', () => {
-  const wrapper = Enzyme.shallow(<Board updatedGrid={['', '', '', '', '', '', '', '', '']}/>);
+  const wrapper = Enzyme.shallow(
+    <Board updatedGrid={['', '', '', '', '', '', '', '', '']} />,
+  );
   expect(wrapper.find(Cell)).toHaveLength(9);
 });

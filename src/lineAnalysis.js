@@ -1,7 +1,7 @@
 import * as cellValue from '../src/cellValue';
 import * as gameHelper from '../src/components/game/gameHelper';
 
-export function isThereAWinner(grid) {
+export function checkForWinner(grid) {
   let winningResults = {winnerFound: false, winningMove: null};
   winningLines(grid).forEach(line => {
     const potentialWinningLine = markedLine(line, grid);
@@ -20,11 +20,11 @@ export function isThereAWinner(grid) {
 
 export function isThereADraw(grid) {
   const numberOfEmptyCells = gameHelper.countMark(cellValue.EMPTY, grid);
-  return numberOfEmptyCells === 0 && !isThereAWinner(grid).winnerFound;
+  return numberOfEmptyCells === 0 && !checkForWinner(grid).winnerFound;
 }
 
 export function isGameOver(grid) {
-  return isThereAWinner(grid).winnerFound || isThereADraw(grid);
+  return checkForWinner(grid).winnerFound || isThereADraw(grid);
 }
 
 function markedLine(line, grid) {
