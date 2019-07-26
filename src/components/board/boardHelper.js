@@ -1,5 +1,5 @@
-import * as cellValue from '../../cellValue';
+import {EMPTY} from '../../cellValue';
 
 export function isMoveAvailable(grid, index) {
-  return grid[index] === cellValue.EMPTY;
+  return grid[index] === EMPTY;
 }

@@ -1,5 +1,5 @@
-import * as cellValue from '../src/cellValue';
-import * as gameHelper from '../src/components/game/gameHelper';
+import {EMPTY} from '../src/cellValue';
+import {countMark} from '../src/components/game/gameHelper';
 
 export function checkForWinner(grid) {
   let winningResults = {winnerFound: false, winningMove: null};
@@ -19,7 +19,7 @@ export function checkForWinner(grid) {
 }
 
 export function isThereADraw(grid) {
-  const numberOfEmptyCells = gameHelper.countMark(cellValue.EMPTY, grid);
+  const numberOfEmptyCells = countMark(EMPTY, grid);
   return numberOfEmptyCells === 0 && !checkForWinner(grid).winnerFound;
 }
 
@@ -36,7 +36,7 @@ function markedLine(line, grid) {
 }
 
 function isThereAWinningLine(cell, line) {
-  return cell === line[0] && cell !== cellValue.EMPTY;
+  return cell === line[0] && cell !== EMPTY;
 }
 
 function winningLines(grid) {
