@@ -5,7 +5,7 @@ export function isThereAWinner(grid) {
   let winningResults = {winnerFound: false, winningMove: null};
   winningLines(grid).forEach(line => {
     const [a, b, c] = line;
-    let potentialWinningLine = [grid[a], grid[b], grid[c]];
+    const potentialWinningLine = [grid[a], grid[b], grid[c]];
     if (
       potentialWinningLine.every(cell =>
         isThereAWinningLine(cell, potentialWinningLine),
@@ -20,7 +20,7 @@ export function isThereAWinner(grid) {
 }
 
 export function isThereADraw(grid) {
-  let numberOfEmptyCells = gameHelper.countMark(cellValue.EMPTY, grid);
+  const numberOfEmptyCells = gameHelper.countMark(cellValue.EMPTY, grid);
   return numberOfEmptyCells === 0 && !isThereAWinner(grid).winnerFound;
 }
 
