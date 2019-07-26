@@ -4,8 +4,7 @@ import * as gameHelper from '../src/components/game/gameHelper';
 export function isThereAWinner(grid) {
   let winningResults = {winnerFound: false, winningMove: null};
   winningLines(grid).forEach(line => {
-    const [a, b, c] = line;
-    const potentialWinningLine = [grid[a], grid[b], grid[c]];
+    const potentialWinningLine = markedLine(line, grid);
     if (
       potentialWinningLine.every(cell =>
         isThereAWinningLine(cell, potentialWinningLine),
@@ -26,6 +25,14 @@ export function isThereADraw(grid) {
 
 export function isGameOver(grid) {
   return isThereAWinner(grid).winnerFound || isThereADraw(grid);
+}
+
+function markedLine(line, grid) {
+  let markedLine = [];
+  line.forEach(index => {
+    markedLine.push(grid[index]);
+  });
+  return markedLine;
 }
 
 function isThereAWinningLine(cell, line) {
