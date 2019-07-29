@@ -3,13 +3,14 @@ import {Board} from '../board/Board';
 import {isMoveAvailable} from '../board/boardHelper';
 import * as gameHelper from '../game/gameHelper';
 import {isGameOver} from '../../lineAnalysis';
-import {EMPTY} from '../../cellValue';
+import * as gameMode from '../../gameMode';
+import {getMove} from '../../randomComputerPlayer';
 
 export class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      grid: Array(this.props.boardSize).fill(EMPTY),
+      grid: this.props.board,
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -17,8 +18,20 @@ export class Game extends Component {
   handleClick(e) {
     const index = e.target.id;
     const grid = this.state.grid.slice();
-    if (isMoveAvailable(grid, index) && !isGameOver(grid)) {
-      grid[index] = gameHelper.determineMark(this.state.grid);
+    switch (this.props.gameMode) {
+      case gameMode.HUMANVSHUMAN:
+        if (isMoveAvailable(grid, index) && !isGameOver(grid)) {
+          grid[index] = gameHelper.determineMark(this.state.grid);
+        }
+        break;
+      case gameMode.HUMANVSRANDOM:
+        if (isMoveAvailable(grid, index) && !isGameOver(grid)) {
+          grid[index] = gameHelper.determineMark(this.state.grid);
+          grid[getMove(grid)] = gameHelper.determineMark(grid);
+        }
+        break;
+      default:
+        this.setState({grid: grid});
     }
     this.setState({grid: grid});
   }

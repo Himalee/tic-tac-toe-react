@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Game} from './components/game/Game';
+import {TicTacToe} from './components/ticTacToe/TicTacToe';
 
-ReactDOM.render(<Game boardSize={9} />, document.getElementById('root'));
+ReactDOM.render(<TicTacToe />, document.getElementById('root'));
