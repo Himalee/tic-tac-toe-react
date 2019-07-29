@@ -1,4 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Game} from './components/game/Game';
 
- ReactDOM.render(<h1>Hello, world.</h1>, document.getElementById('root'));
+ReactDOM.render(<Game boardSize={9} />, document.getElementById('root'));
