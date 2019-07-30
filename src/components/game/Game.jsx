@@ -31,7 +31,6 @@ export class Game extends Component {
         }
         break;
       default:
-        this.setState({grid: grid});
     }
     this.setState({grid: grid});
   }
