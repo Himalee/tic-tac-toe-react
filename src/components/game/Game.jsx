@@ -17,22 +17,32 @@ export class Game extends Component {
 
   handleClick(e) {
     const index = e.target.id;
-    const grid = this.state.grid.slice();
+    let grid = this.state.grid.slice();
     switch (this.props.gameMode) {
       case gameMode.HUMANVSHUMAN:
-        if (isMoveAvailable(grid, index) && !isGameOver(grid)) {
-          grid[index] = gameHelper.determineMark(this.state.grid);
-        }
+        grid = this.markGridWithHumanPlayerMove(grid, index);
         break;
       case gameMode.HUMANVSRANDOM:
-        if (isMoveAvailable(grid, index) && !isGameOver(grid)) {
-          grid[index] = gameHelper.determineMark(this.state.grid);
-          grid[getMove(grid)] = gameHelper.determineMark(grid);
-        }
+        grid = this.markGridWithHumanPlayerMove(grid, index);
+        grid = this.markGridWithRandomComputerPlayerMove(grid);
         break;
       default:
     }
     this.setState({grid: grid});
+  }
+
+  markGridWithHumanPlayerMove(grid, index) {
+    if (isMoveAvailable(grid, index) && !isGameOver(grid)) {
+      grid[index] = gameHelper.determineMark(this.state.grid);
+    }
+    return grid;
+  }
+
+  markGridWithRandomComputerPlayerMove(grid) {
+    if (!isGameOver(grid)) {
+      grid[getMove(grid)] = gameHelper.determineMark(grid);
+    }
+    return grid;
   }
 
   render() {

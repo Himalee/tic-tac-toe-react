@@ -165,3 +165,27 @@ it('marks final position when playing a human vs random computer player game', (
     'O',
   ]);
 });
+
+it('random computer player does not mark the board if the game has completed', () => {
+  const wrapper = Enzyme.mount(
+    <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSRANDOM} />,
+  );
+  wrapper.setState({
+    grid: ['X', EMPTY, 'X', 'O', EMPTY, 'O', EMPTY, EMPTY, EMPTY],
+  });
+  wrapper
+    .find(Cell)
+    .at(1)
+    .simulate('click');
+  expect(wrapper.state('grid')).toEqual([
+    'X',
+    'X',
+    'X',
+    'O',
+    EMPTY,
+    'O',
+    EMPTY,
+    EMPTY,
+    EMPTY,
+  ]);
+});
