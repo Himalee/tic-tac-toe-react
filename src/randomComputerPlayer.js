@@ -1,11 +1,7 @@
-import { EMPTY } from '../src/cellValue';
+import { availableMoves } from '../src/components/board/boardHelper';
 
 export function getMove(grid) {
-  let validMoves = [];
-  grid.forEach(function(value, i) {
-    if (value === EMPTY) {
-      validMoves.push(i);
-    }
-  });
-  return validMoves[Math.floor(Math.random() * validMoves.length)];
+  return availableMoves(grid)[
+    Math.floor(Math.random() * availableMoves(grid).length)
+  ];
 }
