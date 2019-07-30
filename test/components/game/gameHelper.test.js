@@ -1,5 +1,5 @@
 import * as gameHelper from '../../../src/components/game/gameHelper';
-import {EMPTY} from '../../../src/cellValue';
+import { EMPTY } from '../../../src/cellValue';
 
 it('determines next players mark', () => {
   const grid = ['X', EMPTY, 'X', 'O', EMPTY, EMPTY, EMPTY, EMPTY, EMPTY];

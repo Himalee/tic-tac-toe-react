@@ -1,5 +1,5 @@
 import * as lineAnalysis from '../src/lineAnalysis';
-import {EMPTY} from '../src/cellValue';
+import { EMPTY } from '../src/cellValue';
 
 it('returns true if X wins', () => {
   const grid = ['X', 'X', 'X', 'O', 'O', EMPTY, EMPTY, EMPTY, EMPTY];
