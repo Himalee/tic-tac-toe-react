@@ -1,8 +1,8 @@
 import Enzyme from 'enzyme';
 import React from 'react';
-import {Game} from '../../../src/components/game/Game';
-import {Cell} from '../../../src/components/cell/Cell';
-import {EMPTY} from '../../../src/cellValue';
+import { Game } from '../../../src/components/game/Game';
+import { Cell } from '../../../src/components/cell/Cell';
+import { EMPTY } from '../../../src/cellValue';
 import * as gameMode from '../../../src/gameMode';
 
 it('marks board with X on click', () => {
@@ -110,7 +110,7 @@ it('displays game status when there is a draw', () => {
   const wrapper = Enzyme.mount(
     <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSHUMAN} />,
   );
-  wrapper.setState({grid: ['X', 'O', 'O', 'O', 'X', 'X', EMPTY, 'X', 'O']});
+  wrapper.setState({ grid: ['X', 'O', 'O', 'O', 'X', 'X', EMPTY, 'X', 'O'] });
   wrapper
     .find(Cell)
     .at(6)

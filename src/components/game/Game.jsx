@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import {Board} from '../board/Board';
-import {isMoveAvailable} from '../board/boardHelper';
+import React, { Component } from 'react';
+import { Board } from '../board/Board';
+import { isMoveAvailable } from '../board/boardHelper';
 import * as gameHelper from '../game/gameHelper';
-import {isGameOver} from '../../lineAnalysis';
+import { isGameOver } from '../../lineAnalysis';
 import * as gameMode from '../../gameMode';
-import {getMove} from '../../randomComputerPlayer';
+import { getMove } from '../../randomComputerPlayer';
 
 export class Game extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ export class Game extends Component {
         break;
       default:
     }
-    this.setState({grid: grid});
+    this.setState({ grid: grid });
   }
 
   markGridWithHumanPlayerMove(grid, index) {

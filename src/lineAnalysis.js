@@ -1,8 +1,8 @@
-import {EMPTY} from '../src/cellValue';
-import {countMark} from '../src/components/game/gameHelper';
+import { EMPTY } from '../src/cellValue';
+import { countMark } from '../src/components/game/gameHelper';
 
 export function checkForWinner(grid) {
-  let winningResults = {winnerFound: false, winningMove: null};
+  let winningResults = { winnerFound: false, winningMove: null };
   winningLines(grid).forEach(line => {
     const potentialWinningLine = markedLine(line, grid);
     if (

@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {Game} from '../../components/game/Game';
-import {EMPTY} from '../../cellValue';
+import React, { Component } from 'react';
+import { Game } from '../../components/game/Game';
+import { EMPTY } from '../../cellValue';
 import * as gameMode from '../../gameMode';
 
 export class TicTacToe extends Component {
@@ -15,8 +15,8 @@ export class TicTacToe extends Component {
 
   handleClick(e) {
     const chosenGameMode = e.target.id;
-    this.setState({gameModeChosen: true});
-    this.setState({gameMode: chosenGameMode});
+    this.setState({ gameModeChosen: true });
+    this.setState({ gameMode: chosenGameMode });
   }
 
   render() {

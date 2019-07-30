@@ -1,5 +1,5 @@
-import {isMoveAvailable} from '../../../src/components/board/boardHelper';
-import {EMPTY} from '../../../src/cellValue';
+import { isMoveAvailable } from '../../../src/components/board/boardHelper';
+import { EMPTY } from '../../../src/cellValue';
 
 it('checks whether move is available', () => {
   const grid = ['X', EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY];

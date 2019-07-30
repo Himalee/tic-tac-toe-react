@@ -1,5 +1,5 @@
 import React from 'react';
-import {Cell} from '../cell/Cell';
+import { Cell } from '../cell/Cell';
 import './board.css';
 
 export function Board(props) {

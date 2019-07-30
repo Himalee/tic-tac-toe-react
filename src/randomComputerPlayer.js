@@ -1,4 +1,4 @@
-import {EMPTY} from '../src/cellValue';
+import { EMPTY } from '../src/cellValue';
 
 export function getMove(grid) {
   let validMoves = [];
