@@ -1,8 +1,6 @@
 import Enzyme from 'enzyme';
 import React from 'react';
 import {Cell} from '../../../src/components/cell/Cell';
-import Adapter from 'enzyme-adapter-react-16';
-Enzyme.configure({adapter: new Adapter()});
 
 it('displays cell label', () => {
   const wrapper = Enzyme.shallow(<Cell />);

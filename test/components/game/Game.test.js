@@ -4,8 +4,6 @@ import {Game} from '../../../src/components/game/Game';
 import {Cell} from '../../../src/components/cell/Cell';
 import {EMPTY} from '../../../src/cellValue';
 import * as gameMode from '../../../src/gameMode';
-import Adapter from 'enzyme-adapter-react-16';
-Enzyme.configure({adapter: new Adapter()});
 
 it('marks board with X on click', () => {
   const wrapper = Enzyme.mount(

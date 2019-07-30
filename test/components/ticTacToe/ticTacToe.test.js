@@ -1,8 +1,6 @@
 import Enzyme from 'enzyme';
 import React from 'react';
 import {TicTacToe} from '../../../src/components/ticTacToe/TicTacToe';
-import Adapter from 'enzyme-adapter-react-16';
-Enzyme.configure({adapter: new Adapter()});
 
 it('sets game mode as human vs human', () => {
   const wrapper = Enzyme.mount(<TicTacToe />);
