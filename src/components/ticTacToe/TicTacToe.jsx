@@ -30,13 +30,11 @@ export class TicTacToe extends Component {
   }
 
   setUpGame() {
-    let game;
     if (this.state.gameMode === gameMode.HUMANVSHUMAN) {
-      game = this.humanVsHumanGame();
+      return this.humanVsHumanGame();
     } else if (this.state.gameMode === gameMode.HUMANVSRANDOM) {
-      game = this.humanVsRandomGame();
+      return this.humanVsRandomGame();
     }
-    return game;
   }
 
   render() {
