@@ -12,28 +12,23 @@ export class TicTacToe extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  humanVsHumanGame() {
-    return (
-      <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSHUMAN} />
-    );
-  }
-
-  humanVsRandomGame() {
-    return (
-      <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSRANDOM} />
-    );
-  }
-
   handleClick(e) {
     const chosenGameMode = e.target.id;
     this.setState({gameMode: chosenGameMode});
   }
 
+  createGame(gameMode) {
+    return <Game board={Array(9).fill(EMPTY)} gameMode={gameMode} />;
+  }
+
   setUpGame() {
-    if (this.state.gameMode === gameMode.HUMANVSHUMAN) {
-      return this.humanVsHumanGame();
-    } else if (this.state.gameMode === gameMode.HUMANVSRANDOM) {
-      return this.humanVsRandomGame();
+    switch (this.state.gameMode) {
+      case gameMode.HUMANVSHUMAN:
+        return this.createGame(gameMode.HUMANVSHUMAN);
+      case gameMode.HUMANVSRANDOM:
+        return this.createGame(gameMode.HUMANVSRANDOM);
+      default:
+        return 'Choose a game mode';
     }
   }
 
