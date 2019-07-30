@@ -22,7 +22,7 @@ export class TicTacToe extends Component {
   render() {
     return (
       <div>
-        {!this.state.gameModeChosen ? (
+        {!this.state.gameModeChosen && (
           <div>
             <button id={gameMode.HUMANVSHUMAN} onClick={this.handleClick}>
               Human
@@ -31,10 +31,10 @@ export class TicTacToe extends Component {
               Random
             </button>
           </div>
-        ) : null}
-        {this.state.gameModeChosen ? (
+        )}
+        {this.state.gameModeChosen && (
           <Game board={Array(9).fill(EMPTY)} gameMode={this.state.gameMode} />
-        ) : null}
+        )}
       </div>
     );
   }
