@@ -17,14 +17,14 @@ export class Game extends Component {
 
   handleClick(e) {
     const index = e.target.id;
-    let grid = this.state.grid.slice();
+    let grid = this.state.grid;
     switch (this.props.gameMode) {
       case gameMode.HUMANVSHUMAN:
-        grid = this.markGridWithHumanPlayerMove(grid, index);
+        this.markGridWithHumanPlayerMove(grid, index);
         break;
       case gameMode.HUMANVSRANDOM:
-        grid = this.markGridWithHumanPlayerMove(grid, index);
-        grid = this.markGridWithRandomComputerPlayerMove(grid);
+        this.markGridWithHumanPlayerMove(grid, index);
+        this.markGridWithRandomComputerPlayerMove(grid);
         break;
       default:
     }
