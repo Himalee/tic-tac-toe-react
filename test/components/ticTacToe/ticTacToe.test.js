@@ -2,6 +2,7 @@ import Enzyme from 'enzyme';
 import React from 'react';
 import { TicTacToe } from '../../../src/components/ticTacToe/TicTacToe';
 import { Game } from '../../../src/components/game/Game';
+import { Cell } from '../../../src/components/cell/Cell';
 
 it('sets game mode as human vs human', () => {
   const wrapper = Enzyme.mount(<TicTacToe />);
@@ -36,5 +37,5 @@ it('renders a Game and does not render game mode buttons if a game mode has been
     .at(1)
     .simulate('click');
   expect(wrapper.find(Game)).toHaveLength(1);
-  expect(wrapper.find('button')).toHaveLength(9);
+  expect(wrapper.find(Cell)).toHaveLength(9);
 });
