@@ -1,6 +1,7 @@
 import { availableMoves } from '../src/components/board/boardHelper';
-import { determineMark } from '../src/components/game/gameHelper';
 import * as lineAnalysis from '../src/lineAnalysis';
+
+export const STARTINGDEPTH = 1;
 
 export function getMove(grid, depth, mark) {
   let scores = {};
@@ -11,7 +12,7 @@ export function getMove(grid, depth, mark) {
   }
   availableMoves(grid).forEach(move => {
     let newGrid = markGrid(grid.slice(), move, mark);
-    let opponentMark = determineMark(grid);
+    let opponentMark = switchMarks(mark);
     scores[move] = -getMove(newGrid, depth + 1, opponentMark);
   });
   return getBestMoveOrBestScore(scores, depth);
@@ -38,4 +39,8 @@ function getBestMove(scores) {
     Object.keys(scores).reduce((a, b) => (scores[a] > scores[b] ? a : b)),
     10,
   );
+}
+
+function switchMarks(mark) {
+  return mark === 'X' ? 'O' : 'X';
 }

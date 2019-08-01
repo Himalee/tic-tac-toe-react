@@ -26,6 +26,11 @@ it('player X blocks player O from winning', () => {
   expect(unbeatableComputerPlayer.getMove(grid, 1, 'X')).toEqual(2);
 });
 
+it('player O blocks player X from winning', () => {
+  const grid = ['X', 'X', EMPTY, 'O', EMPTY, EMPTY, EMPTY, EMPTY, EMPTY];
+  expect(unbeatableComputerPlayer.getMove(grid, 1, 'O')).toEqual(2);
+});
+
 it('player X chooses to win over blocking opponent from winning', () => {
   const grid = ['X', 'X', EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, 'O', 'O'];
   expect(unbeatableComputerPlayer.getMove(grid, 1, 'X')).toEqual(2);

@@ -28,6 +28,9 @@ export class TicTacToe extends Component {
             <button id={gameMode.HUMANVSRANDOM} onClick={this.handleClick}>
               Random
             </button>
+            <button id={gameMode.HUMANVSUNBEATABLE} onClick={this.handleClick}>
+              Hard
+            </button>
           </div>
         )}
         {this.state.gameMode != null && (

@@ -4,7 +4,8 @@ import { isMoveAvailable } from '../board/boardHelper';
 import * as gameHelper from '../game/gameHelper';
 import { isGameOver } from '../../lineAnalysis';
 import * as gameMode from '../../gameMode';
-import { getMove } from '../../randomComputerPlayer';
+import { getRandomMove } from '../../randomComputerPlayer';
+import * as unbeatableComputerPlayer from '../../unbeatableComputerPlayer';
 
 export class Game extends Component {
   constructor(props) {
@@ -26,6 +27,10 @@ export class Game extends Component {
         this.markGridWithHumanPlayerMove(grid, index);
         this.markGridWithRandomComputerPlayerMove(grid);
         break;
+      case gameMode.HUMANVSUNBEATABLE:
+        this.markGridWithHumanPlayerMove(grid, index);
+        this.markGridWithUnbeatableComputerPlayerMove(grid);
+        break;
       default:
     }
     this.setState({ grid: grid });
@@ -40,7 +45,21 @@ export class Game extends Component {
 
   markGridWithRandomComputerPlayerMove(grid) {
     if (!isGameOver(grid)) {
-      grid[getMove(grid)] = gameHelper.determineMark(grid);
+      grid[getRandomMove(grid)] = gameHelper.determineMark(grid);
+    }
+    return grid;
+  }
+
+  markGridWithUnbeatableComputerPlayerMove(grid) {
+    const mark = gameHelper.determineMark(grid);
+    if (!isGameOver(grid)) {
+      grid[
+        unbeatableComputerPlayer.getMove(
+          grid,
+          unbeatableComputerPlayer.STARTINGDEPTH,
+          'O',
+        )
+      ] = mark;
     }
     return grid;
   }
