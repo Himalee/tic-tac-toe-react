@@ -6,6 +6,7 @@ import { isGameOver } from '../../lineAnalysis';
 import * as gameMode from '../../gameMode';
 import { getRandomMove } from '../../randomComputerPlayer';
 import * as unbeatableComputerPlayer from '../../unbeatableComputerPlayer';
+import * as cellValue from '../../cellValue';
 
 export class Game extends Component {
   constructor(props) {
@@ -57,7 +58,7 @@ export class Game extends Component {
         unbeatableComputerPlayer.getMove(
           grid,
           unbeatableComputerPlayer.STARTINGDEPTH,
-          'O',
+          cellValue.O,
         )
       ] = mark;
     }
