@@ -8,21 +8,19 @@ export class TicTacToe extends Component {
     super(props);
     this.state = {
       gameMode: null,
-      gameModeChosen: false,
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(e) {
     const chosenGameMode = e.target.id;
-    this.setState({ gameModeChosen: true });
     this.setState({ gameMode: chosenGameMode });
   }
 
   render() {
     return (
       <div>
-        {!this.state.gameModeChosen && (
+        {this.state.gameMode == null && (
           <div>
             <button id={gameMode.HUMANVSHUMAN} onClick={this.handleClick}>
               Human
@@ -32,7 +30,7 @@ export class TicTacToe extends Component {
             </button>
           </div>
         )}
-        {this.state.gameModeChosen && (
+        {this.state.gameMode != null && (
           <Game board={Array(9).fill(EMPTY)} gameMode={this.state.gameMode} />
         )}
       </div>
