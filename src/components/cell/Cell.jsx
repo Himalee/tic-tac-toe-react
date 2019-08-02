@@ -3,7 +3,11 @@ import './cell.css';
 
 export function Cell(props) {
   return (
-    <button id={props.id} onClick={props.onClick}>
+    <button
+      class="button"
+      id={props.id}
+      disabled={props.cellLabel !== ''}
+      onClick={props.onClick}>
       {props.cellLabel}
     </button>
   );
