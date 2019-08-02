@@ -7,6 +7,7 @@ import * as gameMode from '../../gameMode';
 import { getRandomMove } from '../../randomComputerPlayer';
 import * as unbeatableComputerPlayer from '../../unbeatableComputerPlayer';
 import * as cellValue from '../../cellValue';
+import './game.css';
 
 export class Game extends Component {
   constructor(props) {

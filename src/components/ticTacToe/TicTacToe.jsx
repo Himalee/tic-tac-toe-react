@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Game } from '../../components/game/Game';
 import { EMPTY } from '../../cellValue';
 import * as gameMode from '../../gameMode';
+import './ticTacToe.css';
 
 export class TicTacToe extends Component {
   constructor(props) {
@@ -19,16 +20,25 @@ export class TicTacToe extends Component {
 
   render() {
     return (
-      <div>
+      <div class="wrapper">
         {this.state.gameMode == null && (
           <div>
-            <button id={gameMode.HUMANVSHUMAN} onClick={this.handleClick}>
+            <button
+              class="gameModeButton"
+              id={gameMode.HUMANVSHUMAN}
+              onClick={this.handleClick}>
               Human
             </button>
-            <button id={gameMode.HUMANVSRANDOM} onClick={this.handleClick}>
+            <button
+              class="gameModeButton"
+              id={gameMode.HUMANVSRANDOM}
+              onClick={this.handleClick}>
               Random
             </button>
-            <button id={gameMode.HUMANVSUNBEATABLE} onClick={this.handleClick}>
+            <button
+              class="gameModeButton"
+              id={gameMode.HUMANVSUNBEATABLE}
+              onClick={this.handleClick}>
               Hard
             </button>
           </div>
