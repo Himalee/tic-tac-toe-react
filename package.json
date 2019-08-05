@@ -16,6 +16,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "aws s3 sync build/ s3://tic-tac-toe-app",
     "test": "jest --verbose",
     "test:coverage": "jest --verbose --coverage",
     "eject": "react-scripts eject"
