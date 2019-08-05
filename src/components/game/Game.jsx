@@ -4,7 +4,10 @@ import { isMoveAvailable } from '../board/boardHelper';
 import * as gameHelper from '../game/gameHelper';
 import { isGameOver } from '../../lineAnalysis';
 import * as gameMode from '../../gameMode';
-import { getMove } from '../../randomComputerPlayer';
+import { getRandomMove } from '../../randomComputerPlayer';
+import * as unbeatableComputerPlayer from '../../unbeatableComputerPlayer';
+import * as cellValue from '../../cellValue';
+import './game.css';
 
 export class Game extends Component {
   constructor(props) {
@@ -17,14 +20,18 @@ export class Game extends Component {
 
   handleClick(e) {
     const index = e.target.id;
-    let grid = this.state.grid.slice();
+    let grid = this.state.grid;
     switch (this.props.gameMode) {
       case gameMode.HUMANVSHUMAN:
-        grid = this.markGridWithHumanPlayerMove(grid, index);
+        this.markGridWithHumanPlayerMove(grid, index);
         break;
       case gameMode.HUMANVSRANDOM:
-        grid = this.markGridWithHumanPlayerMove(grid, index);
-        grid = this.markGridWithRandomComputerPlayerMove(grid);
+        this.markGridWithHumanPlayerMove(grid, index);
+        this.markGridWithRandomComputerPlayerMove(grid);
+        break;
+      case gameMode.HUMANVSUNBEATABLE:
+        this.markGridWithHumanPlayerMove(grid, index);
+        this.markGridWithUnbeatableComputerPlayerMove(grid);
         break;
       default:
     }
@@ -40,7 +47,21 @@ export class Game extends Component {
 
   markGridWithRandomComputerPlayerMove(grid) {
     if (!isGameOver(grid)) {
-      grid[getMove(grid)] = gameHelper.determineMark(grid);
+      grid[getRandomMove(grid)] = gameHelper.determineMark(grid);
+    }
+    return grid;
+  }
+
+  markGridWithUnbeatableComputerPlayerMove(grid) {
+    const mark = gameHelper.determineMark(grid);
+    if (!isGameOver(grid)) {
+      grid[
+        unbeatableComputerPlayer.getMove(
+          grid,
+          unbeatableComputerPlayer.STARTINGDEPTH,
+          cellValue.O,
+        )
+      ] = mark;
     }
     return grid;
   }
@@ -49,7 +70,7 @@ export class Game extends Component {
     return (
       <div>
         <Board updatedGrid={this.state.grid} handleClick={this.handleClick} />
-        <h2>{gameHelper.determineGameStatus(this.state.grid)}</h2>
+        <p>{gameHelper.determineGameStatus(this.state.grid)}</p>
       </div>
     );
   }
