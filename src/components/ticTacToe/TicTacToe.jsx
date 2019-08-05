@@ -20,23 +20,23 @@ export class TicTacToe extends Component {
 
   render() {
     return (
-      <div class="wrapper">
+      <div className="wrapper">
         {this.state.gameMode == null && (
           <div>
             <button
-              class="gameModeButton"
+              className="gameModeButton"
               id={gameMode.HUMANVSHUMAN}
               onClick={this.handleClick}>
               Human
             </button>
             <button
-              class="gameModeButton"
+              className="gameModeButton"
               id={gameMode.HUMANVSRANDOM}
               onClick={this.handleClick}>
               Random
             </button>
             <button
-              class="gameModeButton"
+              className="gameModeButton"
               id={gameMode.HUMANVSUNBEATABLE}
               onClick={this.handleClick}>
               Hard
