@@ -1,5 +1,6 @@
 import { availableMoves } from '../src/components/board/boardHelper';
 import * as lineAnalysis from '../src/lineAnalysis';
+import * as cellValue from '../src/cellValue';
 
 export const STARTINGDEPTH = 1;
 
@@ -42,5 +43,5 @@ function getBestMove(scores) {
 }
 
 function switchMarks(mark) {
-  return mark === 'X' ? 'O' : 'X';
+  return mark === cellValue.X ? cellValue.O : cellValue.X;
 }
