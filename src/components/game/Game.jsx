@@ -9,7 +9,7 @@ import * as unbeatableComputerPlayer from '../../unbeatableComputerPlayer';
 import * as cellValue from '../../cellValue';
 import './game.css';
 
-export const LENGTH_OF_PAUSE_AFTER_MOVE = 500;
+const LENGTH_OF_PAUSE_AFTER_MOVE = 500;
 
 export class Game extends Component {
   constructor(props) {
