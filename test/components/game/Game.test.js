@@ -87,7 +87,7 @@ it('displays game status when the game is still in play', () => {
     .find(Cell)
     .at(1)
     .simulate('click');
-  expect(wrapper.containsMatchingElement(<p>Keep playing...</p>)).toBeTruthy();
+  expect(wrapper.containsMatchingElement(<p>Player X's turn</p>)).toBeTruthy();
 });
 
 it('displays game status when the player X wins', () => {
@@ -141,6 +141,7 @@ it('does not allow user to pick a cell if game has reached a terminal state', ()
 });
 
 it('random computer player marks final position', () => {
+  jest.useFakeTimers();
   const wrapper = Enzyme.mount(
     <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSRANDOM} />,
   );
@@ -151,17 +152,20 @@ it('random computer player marks final position', () => {
     .find(Cell)
     .at(8)
     .simulate('click');
-  expect(wrapper.state('grid')).toEqual([
-    'X',
-    'O',
-    'X',
-    'O',
-    'O',
-    'X',
-    'X',
-    'X',
-    'O',
-  ]);
+  setTimeout(() => {
+    expect(wrapper.state('grid')).toEqual([
+      'X',
+      'O',
+      'X',
+      'O',
+      'O',
+      'X',
+      'X',
+      'X',
+      'O',
+    ]);
+  }, 500);
+  jest.runAllTimers();
 });
 
 it('random computer player does not mark the board if the game has completed', () => {
@@ -189,6 +193,7 @@ it('random computer player does not mark the board if the game has completed', (
 });
 
 it('unbeatable computer player chooses winning move', () => {
+  jest.useFakeTimers();
   const wrapper = Enzyme.mount(
     <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSUNBEATABLE} />,
   );
@@ -199,20 +204,24 @@ it('unbeatable computer player chooses winning move', () => {
     .find(Cell)
     .at(7)
     .simulate('click');
-  expect(wrapper.state('grid')).toEqual([
-    'O',
-    'O',
-    'O',
-    EMPTY,
-    'X',
-    EMPTY,
-    'X',
-    'X',
-    EMPTY,
-  ]);
+  setTimeout(() => {
+    expect(wrapper.state('grid')).toEqual([
+      'O',
+      'O',
+      'O',
+      EMPTY,
+      'X',
+      EMPTY,
+      'X',
+      'X',
+      EMPTY,
+    ]);
+  }, 500);
+  jest.runAllTimers();
 });
 
-it('unbeatbable computer player O blocks opponent X from winning', () => {
+it('unbeatable computer player O blocks opponent X from winning', () => {
+  jest.useFakeTimers();
   const wrapper = Enzyme.mount(
     <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSUNBEATABLE} />,
   );
@@ -223,17 +232,20 @@ it('unbeatbable computer player O blocks opponent X from winning', () => {
     .find(Cell)
     .at(1)
     .simulate('click');
-  expect(wrapper.state('grid')).toEqual([
-    'X',
-    'X',
-    'O',
-    EMPTY,
-    'O',
-    EMPTY,
-    EMPTY,
-    EMPTY,
-    EMPTY,
-  ]);
+  setTimeout(() => {
+    expect(wrapper.state('grid')).toEqual([
+      'X',
+      'X',
+      'O',
+      EMPTY,
+      'O',
+      EMPTY,
+      EMPTY,
+      EMPTY,
+      EMPTY,
+    ]);
+  }, 500);
+  jest.runAllTimers();
 });
 
 it('unbeatable computer player does not mark the board if the game has completed', () => {

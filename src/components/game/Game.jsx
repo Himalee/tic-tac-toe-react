@@ -20,40 +20,37 @@ export class Game extends Component {
 
   handleClick(e) {
     const index = e.target.id;
-    let grid = this.state.grid;
+    let grid = this.state.grid.slice();
+    this.markGridWithHumanPlayerMove(grid, index);
     switch (this.props.gameMode) {
-      case gameMode.HUMANVSHUMAN:
-        this.markGridWithHumanPlayerMove(grid, index);
-        break;
       case gameMode.HUMANVSRANDOM:
-        this.markGridWithHumanPlayerMove(grid, index);
-        this.markGridWithRandomComputerPlayerMove(grid);
+        setTimeout(() => this.markGridWithRandomComputerPlayerMove(grid), 500);
         break;
       case gameMode.HUMANVSUNBEATABLE:
-        this.markGridWithHumanPlayerMove(grid, index);
-        this.markGridWithUnbeatableComputerPlayerMove(grid);
+        setTimeout(
+          () => this.markGridWithUnbeatableComputerPlayerMove(grid),
+          500,
+        );
         break;
       default:
     }
-    this.setState({ grid: grid });
   }
 
   markGridWithHumanPlayerMove(grid, index) {
     if (isMoveAvailable(grid, index) && !isGameOver(grid)) {
-      grid[index] = gameHelper.determineMark(this.state.grid);
+      grid[index] = gameHelper.determineMark(grid);
     }
-    return grid;
+    this.setState({ grid: grid });
   }
 
   markGridWithRandomComputerPlayerMove(grid) {
     if (!isGameOver(grid)) {
       grid[getRandomMove(grid)] = gameHelper.determineMark(grid);
     }
-    return grid;
+    this.setState({ grid: grid });
   }
 
   markGridWithUnbeatableComputerPlayerMove(grid) {
-    const mark = gameHelper.determineMark(grid);
     if (!isGameOver(grid)) {
       grid[
         unbeatableComputerPlayer.getMove(
@@ -61,9 +58,9 @@ export class Game extends Component {
           unbeatableComputerPlayer.STARTINGDEPTH,
           cellValue.O,
         )
-      ] = mark;
+      ] = gameHelper.determineMark(grid);
     }
-    return grid;
+    this.setState({ grid: grid });
   }
 
   render() {

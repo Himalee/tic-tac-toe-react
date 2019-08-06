@@ -8,7 +8,7 @@ it('determines next players mark', () => {
 
 it('determines game status when game has not reached an end state', () => {
   const grid = ['X', EMPTY, 'X', 'O', EMPTY, EMPTY, EMPTY, EMPTY, EMPTY];
-  expect(gameHelper.determineGameStatus(grid)).toEqual('Keep playing...');
+  expect(gameHelper.determineGameStatus(grid)).toEqual("Player O's turn");
 });
 
 it('determines game status when player X wins', () => {

@@ -25,7 +25,7 @@ export function determineGameStatus(grid) {
   } else if (lineAnalysis.isThereADraw(grid)) {
     status = gameStatus.DRAW;
   } else {
-    status = gameStatus.CONTINUE_PLAYING;
+    status = 'Player ' + determineMark(grid) + "'s turn";
   }
   return status;
 }
