@@ -5,6 +5,8 @@ import { Cell } from '../../../src/components/cell/Cell';
 import { EMPTY } from '../../../src/cellValue';
 import * as gameMode from '../../../src/gameMode';
 
+export const LENGTH_OF_PAUSE_AFTER_MOVE = 500;
+
 it('marks board with X on click', () => {
   const wrapper = Enzyme.mount(
     <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSHUMAN} />,
@@ -164,7 +166,7 @@ it('random computer player marks final position', () => {
       'X',
       'O',
     ]);
-  }, 500);
+  }, LENGTH_OF_PAUSE_AFTER_MOVE);
   jest.runAllTimers();
 });
 
@@ -216,7 +218,7 @@ it('unbeatable computer player chooses winning move', () => {
       'X',
       EMPTY,
     ]);
-  }, 500);
+  }, LENGTH_OF_PAUSE_AFTER_MOVE);
   jest.runAllTimers();
 });
 
@@ -244,7 +246,7 @@ it('unbeatable computer player O blocks opponent X from winning', () => {
       EMPTY,
       EMPTY,
     ]);
-  }, 500);
+  }, LENGTH_OF_PAUSE_AFTER_MOVE);
   jest.runAllTimers();
 });
 

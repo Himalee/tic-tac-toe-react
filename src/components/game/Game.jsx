@@ -9,6 +9,8 @@ import * as unbeatableComputerPlayer from '../../unbeatableComputerPlayer';
 import * as cellValue from '../../cellValue';
 import './game.css';
 
+export const LENGTH_OF_PAUSE_AFTER_MOVE = 500;
+
 export class Game extends Component {
   constructor(props) {
     super(props);
@@ -24,12 +26,15 @@ export class Game extends Component {
     this.markGridWithHumanPlayerMove(grid, index);
     switch (this.props.gameMode) {
       case gameMode.HUMANVSRANDOM:
-        setTimeout(() => this.markGridWithRandomComputerPlayerMove(grid), 500);
+        setTimeout(
+          () => this.markGridWithRandomComputerPlayerMove(grid),
+          LENGTH_OF_PAUSE_AFTER_MOVE,
+        );
         break;
       case gameMode.HUMANVSUNBEATABLE:
         setTimeout(
           () => this.markGridWithUnbeatableComputerPlayerMove(grid),
-          500,
+          LENGTH_OF_PAUSE_AFTER_MOVE,
         );
         break;
       default:
