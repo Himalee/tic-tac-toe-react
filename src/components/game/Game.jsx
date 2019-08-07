@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Board } from '../board/Board';
-import { TicTacToe } from '../ticTacToe/TicTacToe';
+import { GameModeSelector } from '../gameModeSelector/GameModeSelector';
 import { isMoveAvailable } from '../board/boardHelper';
 import * as gameHelper from '../game/gameHelper';
 import { isGameOver } from '../../lineAnalysis';
@@ -80,7 +80,7 @@ export class Game extends Component {
   render() {
     return (
       <div className="wrapper">
-        <TicTacToe handleGameModeClick={this.handleGameModeClick} />
+        <GameModeSelector handleGameModeClick={this.handleGameModeClick} />
         <Board updatedGrid={this.state.grid} handleClick={this.handleClick} />
         <p>{gameHelper.determineGameStatus(this.state.grid)}</p>
       </div>

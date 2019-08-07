@@ -1,7 +1,7 @@
 import React from 'react';
 import * as gameMode from '../../gameMode';
 
-export function TicTacToe(props) {
+export function GameModeSelector(props) {
   return (
     <div>
       <button
