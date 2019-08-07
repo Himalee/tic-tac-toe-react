@@ -4,3 +4,7 @@ p {
   font-weight: bold;
   color: #4169e1;
 }
+
+.wrapper {
+  text-align: center;
+}

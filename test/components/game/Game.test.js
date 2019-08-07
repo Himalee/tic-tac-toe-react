@@ -5,13 +5,56 @@ import { Cell } from '../../../src/components/cell/Cell';
 import { EMPTY } from '../../../src/cellValue';
 import * as gameMode from '../../../src/gameMode';
 
-it('marks board with X on click', () => {
-  const wrapper = Enzyme.mount(
-    <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSHUMAN} />,
+const LENGTH_OF_PAUSE_AFTER_MOVE = 500;
+
+function humanVsHumanGame() {
+  return <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSHUMAN} />;
+}
+
+function humanVsRandomGame() {
+  return (
+    <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSRANDOM} />
   );
+}
+
+function humanVsUnbeatableGame() {
+  return (
+    <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSUNBEATABLE} />
+  );
+}
+
+it('sets game mode as human vs human', () => {
+  const wrapper = Enzyme.mount(<Game />);
+  wrapper
+    .find('button')
+    .first()
+    .simulate('click');
+  expect(wrapper.state('gameMode')).toEqual(gameMode.HUMANVSHUMAN);
+});
+
+it('sets game mode as human vs random computer player', () => {
+  const wrapper = Enzyme.mount(<Game />);
+  wrapper
+    .find('button')
+    .at(1)
+    .simulate('click');
+  expect(wrapper.state('gameMode')).toEqual(gameMode.HUMANVSRANDOM);
+});
+
+it('sets game mode as human vs unbeatable computer player', () => {
+  const wrapper = Enzyme.mount(<Game />);
+  wrapper
+    .find('button')
+    .at(2)
+    .simulate('click');
+  expect(wrapper.state('gameMode')).toEqual(gameMode.HUMANVSUNBEATABLE);
+});
+
+it('marks board with X on click', () => {
+  const wrapper = Enzyme.mount(humanVsHumanGame());
   wrapper
     .find(Cell)
-    .first()
+    .at(0)
     .simulate('click');
   expect(wrapper.state('grid')).toEqual([
     'X',
@@ -27,15 +70,13 @@ it('marks board with X on click', () => {
 });
 
 it('does not allow user to pick a cell that has already been chosen', () => {
-  const wrapper = Enzyme.mount(
-    <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSHUMAN} />,
-  );
+  const wrapper = Enzyme.mount(humanVsHumanGame());
   wrapper.setState({
     grid: ['O', EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY],
   });
   wrapper
     .find(Cell)
-    .first()
+    .at(0)
     .simulate('click');
   expect(wrapper.state('grid')).toEqual([
     'O',
@@ -51,11 +92,10 @@ it('does not allow user to pick a cell that has already been chosen', () => {
 });
 
 it('switches mark when marking the board', () => {
-  const wrapper = Enzyme.mount(
-    <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSHUMAN} />,
-  );
+  const wrapper = Enzyme.mount(humanVsHumanGame());
   wrapper
     .find(Cell)
+    .at(0)
     .first()
     .simulate('click');
   wrapper
@@ -76,24 +116,20 @@ it('switches mark when marking the board', () => {
 });
 
 it('displays game status when the game is still in play', () => {
-  const wrapper = Enzyme.mount(
-    <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSHUMAN} />,
-  );
+  const wrapper = Enzyme.mount(humanVsHumanGame());
   wrapper
     .find(Cell)
-    .first()
+    .at(0)
     .simulate('click');
   wrapper
     .find(Cell)
     .at(1)
     .simulate('click');
-  expect(wrapper.containsMatchingElement(<p>Keep playing...</p>)).toBeTruthy();
+  expect(wrapper.containsMatchingElement(<p>Player X's turn</p>)).toBeTruthy();
 });
 
 it('displays game status when the player X wins', () => {
-  const wrapper = Enzyme.mount(
-    <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSHUMAN} />,
-  );
+  const wrapper = Enzyme.mount(humanVsHumanGame());
   wrapper.setState({
     grid: ['X', 'X', EMPTY, 'O', EMPTY, 'O', EMPTY, EMPTY, EMPTY],
   });
@@ -105,9 +141,7 @@ it('displays game status when the player X wins', () => {
 });
 
 it('displays game status when there is a draw', () => {
-  const wrapper = Enzyme.mount(
-    <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSHUMAN} />,
-  );
+  const wrapper = Enzyme.mount(humanVsHumanGame());
   wrapper.setState({ grid: ['X', 'O', 'O', 'O', 'X', 'X', EMPTY, 'X', 'O'] });
   wrapper
     .find(Cell)
@@ -117,9 +151,7 @@ it('displays game status when there is a draw', () => {
 });
 
 it('does not allow user to pick a cell if game has reached a terminal state', () => {
-  const wrapper = Enzyme.mount(
-    <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSHUMAN} />,
-  );
+  const wrapper = Enzyme.mount(humanVsHumanGame());
   wrapper.setState({
     grid: ['X', 'X', 'X', EMPTY, EMPTY, 'O', EMPTY, EMPTY, 'O'],
   });
@@ -141,9 +173,8 @@ it('does not allow user to pick a cell if game has reached a terminal state', ()
 });
 
 it('random computer player marks final position', () => {
-  const wrapper = Enzyme.mount(
-    <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSRANDOM} />,
-  );
+  jest.useFakeTimers();
+  const wrapper = Enzyme.mount(humanVsRandomGame());
   wrapper.setState({
     grid: ['X', 'O', 'X', 'O', 'O', EMPTY, 'X', 'X', EMPTY],
   });
@@ -151,23 +182,23 @@ it('random computer player marks final position', () => {
     .find(Cell)
     .at(8)
     .simulate('click');
-  expect(wrapper.state('grid')).toEqual([
-    'X',
-    'O',
-    'X',
-    'O',
-    'O',
-    'X',
-    'X',
-    'X',
-    'O',
-  ]);
+  setTimeout(() => {
+    expect(wrapper.state('grid')).toEqual([
+      'X',
+      'O',
+      'X',
+      'O',
+      'O',
+      'X',
+      'X',
+      'X',
+      'O',
+    ]);
+  }, LENGTH_OF_PAUSE_AFTER_MOVE);
 });
 
 it('random computer player does not mark the board if the game has completed', () => {
-  const wrapper = Enzyme.mount(
-    <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSRANDOM} />,
-  );
+  const wrapper = Enzyme.mount(humanVsRandomGame());
   wrapper.setState({
     grid: ['X', EMPTY, 'X', 'O', EMPTY, 'O', EMPTY, EMPTY, EMPTY],
   });
@@ -189,9 +220,8 @@ it('random computer player does not mark the board if the game has completed', (
 });
 
 it('unbeatable computer player chooses winning move', () => {
-  const wrapper = Enzyme.mount(
-    <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSUNBEATABLE} />,
-  );
+  jest.useFakeTimers();
+  const wrapper = Enzyme.mount(humanVsUnbeatableGame());
   wrapper.setState({
     grid: ['O', 'O', EMPTY, EMPTY, 'X', EMPTY, 'X', EMPTY, EMPTY],
   });
@@ -199,23 +229,24 @@ it('unbeatable computer player chooses winning move', () => {
     .find(Cell)
     .at(7)
     .simulate('click');
-  expect(wrapper.state('grid')).toEqual([
-    'O',
-    'O',
-    'O',
-    EMPTY,
-    'X',
-    EMPTY,
-    'X',
-    'X',
-    EMPTY,
-  ]);
+  setTimeout(() => {
+    expect(wrapper.state('grid')).toEqual([
+      'O',
+      'O',
+      'O',
+      EMPTY,
+      'X',
+      EMPTY,
+      'X',
+      'X',
+      EMPTY,
+    ]);
+  }, LENGTH_OF_PAUSE_AFTER_MOVE);
 });
 
-it('unbeatbable computer player O blocks opponent X from winning', () => {
-  const wrapper = Enzyme.mount(
-    <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSUNBEATABLE} />,
-  );
+it('unbeatable computer player O blocks opponent X from winning', () => {
+  jest.useFakeTimers();
+  const wrapper = Enzyme.mount(humanVsUnbeatableGame());
   wrapper.setState({
     grid: ['X', EMPTY, EMPTY, EMPTY, 'O', EMPTY, EMPTY, EMPTY, EMPTY],
   });
@@ -223,23 +254,23 @@ it('unbeatbable computer player O blocks opponent X from winning', () => {
     .find(Cell)
     .at(1)
     .simulate('click');
-  expect(wrapper.state('grid')).toEqual([
-    'X',
-    'X',
-    'O',
-    EMPTY,
-    'O',
-    EMPTY,
-    EMPTY,
-    EMPTY,
-    EMPTY,
-  ]);
+  setTimeout(() => {
+    expect(wrapper.state('grid')).toEqual([
+      'X',
+      'X',
+      'O',
+      EMPTY,
+      'O',
+      EMPTY,
+      EMPTY,
+      EMPTY,
+      EMPTY,
+    ]);
+  }, LENGTH_OF_PAUSE_AFTER_MOVE);
 });
 
 it('unbeatable computer player does not mark the board if the game has completed', () => {
-  const wrapper = Enzyme.mount(
-    <Game board={Array(9).fill(EMPTY)} gameMode={gameMode.HUMANVSUNBEATABLE} />,
-  );
+  const wrapper = Enzyme.mount(humanVsUnbeatableGame());
   wrapper.setState({
     grid: ['X', EMPTY, 'X', 'O', EMPTY, 'O', EMPTY, EMPTY, EMPTY],
   });

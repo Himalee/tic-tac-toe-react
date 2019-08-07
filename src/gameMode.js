@@ -1,3 +1,3 @@
-export const HUMANVSHUMAN = 'humanVsHuman';
-export const HUMANVSRANDOM = 'humanVsRandom';
-export const HUMANVSUNBEATABLE = 'humanVsUnbeatable';
+export const HUMANVSHUMAN = 'Human';
+export const HUMANVSRANDOM = 'Random';
+export const HUMANVSUNBEATABLE = 'Hard';
