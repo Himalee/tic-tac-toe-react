@@ -23,11 +23,38 @@ function humanVsUnbeatableGame() {
   );
 }
 
+it('sets game mode as human vs human', () => {
+  const wrapper = Enzyme.mount(<Game />);
+  wrapper
+    .find('button')
+    .first()
+    .simulate('click');
+  expect(wrapper.state('gameMode')).toEqual(gameMode.HUMANVSHUMAN);
+});
+
+it('sets game mode as human vs random computer player', () => {
+  const wrapper = Enzyme.mount(<Game />);
+  wrapper
+    .find('button')
+    .at(1)
+    .simulate('click');
+  expect(wrapper.state('gameMode')).toEqual(gameMode.HUMANVSRANDOM);
+});
+
+it('sets game mode as human vs unbeatable computer player', () => {
+  const wrapper = Enzyme.mount(<Game />);
+  wrapper
+    .find('button')
+    .at(2)
+    .simulate('click');
+  expect(wrapper.state('gameMode')).toEqual(gameMode.HUMANVSUNBEATABLE);
+});
+
 it('marks board with X on click', () => {
   const wrapper = Enzyme.mount(humanVsHumanGame());
   wrapper
     .find(Cell)
-    .first()
+    .at(0)
     .simulate('click');
   expect(wrapper.state('grid')).toEqual([
     'X',
@@ -49,7 +76,7 @@ it('does not allow user to pick a cell that has already been chosen', () => {
   });
   wrapper
     .find(Cell)
-    .first()
+    .at(0)
     .simulate('click');
   expect(wrapper.state('grid')).toEqual([
     'O',
@@ -68,6 +95,7 @@ it('switches mark when marking the board', () => {
   const wrapper = Enzyme.mount(humanVsHumanGame());
   wrapper
     .find(Cell)
+    .at(0)
     .first()
     .simulate('click');
   wrapper
@@ -91,7 +119,7 @@ it('displays game status when the game is still in play', () => {
   const wrapper = Enzyme.mount(humanVsHumanGame());
   wrapper
     .find(Cell)
-    .first()
+    .at(0)
     .simulate('click');
   wrapper
     .find(Cell)
@@ -167,7 +195,6 @@ it('random computer player marks final position', () => {
       'O',
     ]);
   }, LENGTH_OF_PAUSE_AFTER_MOVE);
-  jest.runAllTimers();
 });
 
 it('random computer player does not mark the board if the game has completed', () => {
@@ -215,7 +242,6 @@ it('unbeatable computer player chooses winning move', () => {
       EMPTY,
     ]);
   }, LENGTH_OF_PAUSE_AFTER_MOVE);
-  jest.runAllTimers();
 });
 
 it('unbeatable computer player O blocks opponent X from winning', () => {
@@ -241,7 +267,6 @@ it('unbeatable computer player O blocks opponent X from winning', () => {
       EMPTY,
     ]);
   }, LENGTH_OF_PAUSE_AFTER_MOVE);
-  jest.runAllTimers();
 });
 
 it('unbeatable computer player does not mark the board if the game has completed', () => {

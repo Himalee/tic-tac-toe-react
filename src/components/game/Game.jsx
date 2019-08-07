@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Board } from '../board/Board';
+import { TicTacToe } from '../ticTacToe/TicTacToe';
 import { isMoveAvailable } from '../board/boardHelper';
 import * as gameHelper from '../game/gameHelper';
 import { isGameOver } from '../../lineAnalysis';
@@ -7,6 +8,7 @@ import * as gameMode from '../../gameMode';
 import { getRandomMove } from '../../randomComputerPlayer';
 import * as unbeatableComputerPlayer from '../../unbeatableComputerPlayer';
 import * as cellValue from '../../cellValue';
+import { EMPTY } from '../../cellValue';
 import './game.css';
 
 const LENGTH_OF_PAUSE_AFTER_MOVE = 500;
@@ -15,16 +17,18 @@ export class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      grid: this.props.board,
+      grid: Array(9).fill(EMPTY),
+      gameMode: null,
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleGameModeClick = this.handleGameModeClick.bind(this);
   }
 
   handleClick(e) {
     const index = e.target.id;
     let grid = this.state.grid.slice();
     this.markGridWithHumanPlayerMove(grid, index);
-    switch (this.props.gameMode) {
+    switch (this.state.gameMode) {
       case gameMode.HUMANVSRANDOM:
         setTimeout(
           () => this.markGridWithRandomComputerPlayerMove(grid),
@@ -39,6 +43,11 @@ export class Game extends Component {
         break;
       default:
     }
+  }
+
+  handleGameModeClick(e) {
+    const chosenGameMode = e.target.id;
+    this.setState({ grid: Array(9).fill(EMPTY), gameMode: chosenGameMode });
   }
 
   markGridWithHumanPlayerMove(grid, index) {
@@ -70,7 +79,8 @@ export class Game extends Component {
 
   render() {
     return (
-      <div>
+      <div className="wrapper">
+        <TicTacToe handleGameModeClick={this.handleGameModeClick} />
         <Board updatedGrid={this.state.grid} handleClick={this.handleClick} />
         <p>{gameHelper.determineGameStatus(this.state.grid)}</p>
       </div>
